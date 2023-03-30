@@ -36,10 +36,8 @@ namespace Archer
         private void Update()
         {
             this.transform.position = new Vector3(distance + target.position.x, distance + target.position.y, distance + target.position.z);
-            //this.transform.rotation = Quaternion.Euler(0, target.rotation.y, 0);
+            this.transform.rotation = Quaternion.Euler(angle, target.eulerAngles.y, 0);
             transform.LookAt(target);
         }
-
     }
-
 }

@@ -26,13 +26,10 @@ namespace Archer
         [SerializeField]
         private Transform handPosition;
 
-      
-
         private Animator animator;
 
         private void Awake()
         {
-           
             // Nos subscribimos al evento de input de disparo (el espacio o el botón A).
             fireInputReference.action.performed += Action_performed;
 
@@ -47,22 +44,18 @@ namespace Archer
 
         private IEnumerator Shoot()
         {
-          
 
             yield return new WaitForSeconds(0.3f);
 
-
             // Instanciar una flecha
-           
+            GameObject newArrow = Instantiate(arrowPrefab, handPosition.transform.position, this.transform.rotation);
 
             // Colocar la flecha en el punto de referencia de la mano de la arquera
-         
 
             // Orientar la flecha hacia delante con respecto a la arquera
-           
 
             // Aplicar una fuerza a la flecha para que salga disparada
-          
+            newArrow.GetComponent<Rigidbody>().AddForce(transform.forward * force);
         }
     }
 
