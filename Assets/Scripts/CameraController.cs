@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,8 +36,17 @@ namespace Archer
 
         private void Update()
         {
-            this.transform.position = new Vector3(distance + target.position.x, distance + target.position.y, distance + target.position.z);
-            this.transform.rotation = Quaternion.Euler(angle, target.eulerAngles.y, 0);
+            var referencedPosition = target.position + offset;
+            float offsetY = Mathf.Cos(angle * Mathf.Deg2Rad) * distance;
+            float offsetX = Mathf.Sin(angle * Mathf.Deg2Rad) * distance;
+
+            var newPosition = referencedPosition + target.rotation * new Vector3(0, offsetY, offsetX);
+
+            transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime / travelTime);
+
+
+           // this.transform.position = new Vector3(distance + target.position.x, distance + target.position.y, distance + target.position.z);
+           // this.transform.rotation = Quaternion.Euler(angle, target.eulerAngles.y, 0);
             transform.LookAt(target);
         }
     }
