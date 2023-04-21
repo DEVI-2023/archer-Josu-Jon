@@ -23,6 +23,7 @@ namespace Archer
             // La flecha sólo produce daño y ruido en el primer impacto
             if (hit)
             {
+                other.GetComponent<AudioSource>().Play();
                 return;
             }
 
