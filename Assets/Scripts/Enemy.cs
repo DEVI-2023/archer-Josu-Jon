@@ -20,6 +20,7 @@ namespace Archer
         private void Awake()
         {
             animator = GetComponent<Animator>();
+            this.GetComponent<Transform>().position = new Vector3(UnityEngine.Random.Range(-10, 10), 0, UnityEngine.Random.Range(-10, 10));
         }
 
         // Método que se llamará cuando el enemigo reciba un impacto
@@ -40,8 +41,17 @@ namespace Archer
         private void Die()
         {
             animator.SetTrigger("Die");
-            //yield return new WaitForSeconds(1.19f);
+            new WaitForSeconds(4f);
             Destroy(gameObject);
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            // Si el objeto contra el que chocamos (collision.gameObject) está en las capas que consideramos suelo (layerMask)...
+            if (collision.gameObject.tag == "Escenario")
+            {
+                this.GetComponent<Transform>().position = new Vector3(UnityEngine.Random.Range(-10, 10), 0, UnityEngine.Random.Range(-10, 10));
+            }
         }
     }
 
